@@ -50,17 +50,18 @@ app.post('/create', (req, res) => {
         } else {
             res.json("Values Inserted");
         }
+    }); 
+});
+
+app.get('/read/:id', (req, res) => {
+    const sql = 'SELECT * FROM students WHERE id = ?';
+    const id = req.params.id;
+
+    db.query(sql,[id], (err, result) => {
+        if (err) {
+            console.log(err);
+        } else {
+            res.json(result);
+        }
     });
-
-
-    app.get('/read/:id', (req, res)=>{
-        const id = req.params.id;
-        db.query('SELECT * FROM students WHERE id = (?)', [id], (err, result) => {
-            if (err) {
-                console.log('server error');
-            } else {
-                res.json(result);
-            }
-        });
-    })
 });
