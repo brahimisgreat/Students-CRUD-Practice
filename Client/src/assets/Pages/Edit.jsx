@@ -1,13 +1,15 @@
 import React from 'react'
 import { useState, useEffect } from 'react'
-import { useParams } from 'react-router-dom'
+import { useParams,useNavigate } from 'react-router-dom'
 import { Link } from 'react-router-dom'
 import axios from 'axios'
 
 export const Edit = () => {
     
     const { id } = useParams();
+    const navigate = useNavigate();
 
+    //fecthing data from the database for the specific id values
     useEffect(() => {
       axios.get("http://localhost:3001/read/"+id)
       .then((res) => {
@@ -17,17 +19,32 @@ export const Edit = () => {
       .catch((error) => console.log(error));
     }, []);
     
-    
+    //updating the values
     const [values, setValues] = useState({
         firstName: '',
         lastName: '',
         email:'',
     });
       
+    //submitting the updated values
+    const handleUpdate = (e) => {
+      e.preventDefault();
+      axios
+        .put("http://localhost:3001/update/"+id, values)
+        .then((res) => {
+          console.log(res.data);
+          navigate('/');
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    }
+    
+
   return (
     <div>
     <h1>Update student</h1>
-      
+      <form >
         <input
           type="text"
           placeholder="FirstName"
@@ -51,7 +68,8 @@ export const Edit = () => {
           onChange={(e) => setValues({ ...values, email: e.target.value })}
           required
         />
-        <button type="submit">Submit</button>
+        </form>
+        <button onClick={handleUpdate} type="submit">Submit</button>
       
     <Link to='/'>back</Link>
     </div>

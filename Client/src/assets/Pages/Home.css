@@ -1,0 +1,9 @@
+.home{
+    width: 50%;
+    background-color: white;
+    border-radius: 10px;
+}
+
+.card{
+    border: solid 1px #000;
+}

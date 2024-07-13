@@ -65,3 +65,30 @@ app.get('/read/:id', (req, res) => {
         }
     });
 });
+
+app.put('/update/:id', (req, res) => {
+    const id = req.params.id;
+    const values= [req.body.firstName, req.body.lastName, req.body.email];
+    const sql = 'UPDATE students SET firstName = ?, lastName = ?, email = ? WHERE id = ?';
+
+    db.query(sql, [...values, id], (err, result) => {
+        if (err) {
+            console.log(err);
+        } else {
+            res.json(result);
+        }
+    });
+});
+
+app.delete('/delete/:id', (req, res) => {
+    const id = req.params.id;
+    const sql = 'DELETE FROM students WHERE id = ?';
+
+    db.query(sql, id, (err, result) => {
+        if (err) {
+            console.log(err);
+        } else {
+            res.json(result);
+        }
+    });
+});

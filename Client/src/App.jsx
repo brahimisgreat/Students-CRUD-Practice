@@ -4,6 +4,7 @@ import { Home } from "./assets/Pages/Home";
 import { CreateStudent } from "./assets/Pages/CreateStudent";
 import { Read } from "./assets/Pages/Read";
 import { Edit } from "./assets/Pages/Edit";
+import 'bootstrap/dist/css/bootstrap.min.css';
 
 function App() {
   return (
